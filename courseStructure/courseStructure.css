@@ -228,4 +228,10 @@ footer{
     padding:40px 10px;
     font-size: 1.3rem;
   }
+  .main-left{
+    width:100%;
+  }
+  .main-right{
+    width:100%;
+  }
 }
