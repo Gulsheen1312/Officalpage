@@ -5,6 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gulsheen French Classes</title>
     <style>
+      /* Loader Styles */
+      .loader-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      
+      .loader {
+        border: 4px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 4px solid #89C4F4;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .status-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px 40px;
+        background: #2c3e50;
+        color: white;
+        border-radius: 8px;
+        display: none;
+        z-index: 1001;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+      </style>
+    <style>
          body {
             margin: 0;
             padding: 0;
@@ -171,6 +214,10 @@
     </style>
 </head>
 <body>
+  <div class="loader-container" id="loader">
+    <div class="loader"></div>
+  </div>
+  <div class="status-message" id="statusMessage"></div>
     <!-- Animated Logo Copy -->
     <img class="logo-animation" src="https://gulsheen1312.github.io/Officalpage/img/logo.jpeg" alt="Animated Logo">
 
@@ -197,20 +244,47 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbynHoiVpttNhEhx3jI7m4VrnkGpD82RP1u5UubKkseakx-bcWQKISkbhYP3oQzH3cFFWA/exec'
-    
-    const form = document.forms['contact-form']
-    
-    form.addEventListener('submit', e => {
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbynHoiVpttNhEhx3jI7m4VrnkGpD82RP1u5UubKkseakx-bcWQKISkbhYP3oQzH3cFFWA/exec';
+      const form = document.forms['contact-form'];
+      const loader = document.getElementById('loader');
+      const statusMessage = document.getElementById('statusMessage');
       
-      e.preventDefault()
-      
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => alert("Thank you! Form is submitted" ))
-      .then(() => { window.location.reload(); })
-      .catch(error => console.error('Error!', error.message))
-    })
-    </script>
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        
+        // Show loader
+        loader.style.display = 'flex';
+        
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(response => {
+            // Show success message
+            statusMessage.textContent = "Thank you! Form submitted successfully!";
+            statusMessage.style.display = 'block';
+            statusMessage.style.backgroundColor = '#89C4F4';
+            
+            // Hide loader and message after 2 seconds
+            setTimeout(() => {
+              loader.style.display = 'none';
+              statusMessage.style.display = 'none';
+              window.location.reload();
+            }, 2000);
+          })
+          .catch(error => {
+            // Show error message
+            statusMessage.textContent = "Error submitting form. Please try again.";
+            statusMessage.style.display = 'block';
+            statusMessage.style.backgroundColor = '#FF7F7F';
+            
+            // Hide loader and message after 3 seconds
+            setTimeout(() => {
+              loader.style.display = 'none';
+              statusMessage.style.display = 'none';
+            }, 3000);
+            
+            console.error('Error!', error.message);
+          });
+      });
+      </script>
     <script>
       
         // Animate logo copy and reveal content
@@ -253,11 +327,8 @@
                 ease: "power2.out"
             }, "-=0.3");
             
-        // Form submission handler
-        document.forms['contact-form'].addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert("Form submitted successfully!");
-        });
+
+       
     </script>
 </body>
 </html>
