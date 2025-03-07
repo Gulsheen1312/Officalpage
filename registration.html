@@ -1,90 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Data to Google Sheet</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        form {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            width: 100%;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        p {
-            margin-top: 15px;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form to Google Sheet</title>
 </head>
 <body>
+  <h1>Contact Form</h1>
+  <form id="contactForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+    
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" required></textarea><br><br>
+    
+    <button type="submit">Submit</button>
+  </form>
 
-    <h2>Register Here</h2>
-    <form id="dataForm">
-        <input type="text" id="name" placeholder="Enter your name" required>
-        <input type="email" id="email" placeholder="Enter your email" required>
-        <input type="tel" id="phonenumber" placeholder="Enter your phone number" required>
-        <button type="submit">Submit</button>
-    </form>
-
-    <p id="responseMessage"></p>
-
-    <script>
-        document.getElementById("dataForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const phonenumber = document.getElementById("phonenumber").value;
-
-            fetch("https://script.google.com/macros/s/AKfycbxOWU1Pp-cr1JUY1jPZutCDesNW2KUqg4nYh9P8DvZffVdcFxHzOWVctmtE2cDP9cI_hg/exec", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, phonenumber })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Server Response:", data);
-                document.getElementById("responseMessage").textContent = data.status === "Success" 
-                    ? "✅ Data submitted successfully!" 
-                    : "❌ Error: " + data.message;
-            })
-            .catch(error => {
-                console.error("Fetch Error:", error);
-                document.getElementById("responseMessage").textContent = "❌ Error submitting data. Check console.";
-            });
-        });
-    </script>
-
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form data
+      var formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value
+      };
+      
+      // Send data to Google Apps Script
+      fetch('https://script.google.com/macros/s/AKfycbxn56RSyvhVoDxgieBC4dzDWAuGA8TFPo6tjsEUqI2KZR9I5TZ7H_YVvTrCPPKYma1JGQ/exec', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.text())
+      .then(data => {
+        alert('Data submitted successfully!');
+        document.getElementById('contactForm').reset();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      });
+    });
+  </script>
 </body>
 </html>
