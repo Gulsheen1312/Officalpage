@@ -3,24 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Sheets Form</title>
+    <title>Submit Data to Google Sheet</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
-        form { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
-        input, textarea { width: 100%; padding: 10px; margin: 10px 0; }
-        button { padding: 10px 20px; background: #28a745; color: #fff; border: none; cursor: pointer; }
-        button:disabled { background: gray; }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        p {
+            margin-top: 15px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <h2>Submit Data to Google Sheets</h2>
+
+    <h2>Register Here</h2>
     <form id="dataForm">
-        <input type="text" id="name" placeholder="Enter Name" required>
-        <input type="email" id="email" placeholder="Enter Email" required>
-        <textarea id="message" placeholder="Enter Message" required></textarea>
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <input type="tel" id="phonenumber" placeholder="Enter your phone number" required>
         <button type="submit">Submit</button>
-        <p id="responseMessage"></p>
     </form>
+
+    <p id="responseMessage"></p>
 
     <script>
         document.getElementById("dataForm").addEventListener("submit", function(e) {
@@ -28,22 +65,26 @@
 
             const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
-            const message = document.getElementById("message").value;
+            const phonenumber = document.getElementById("phonenumber").value;
 
-            fetch("https://script.google.com/macros/s/AKfycbz-okDWW9rAQRXZHiVYG-xc1U97Pfm9oV4wt3IzRkDpmw6HnoeyoHVcPefG9i667J9jZA/exec", {
+            fetch("https://script.google.com/macros/s/AKfycby33yQ3X3sZPzyklNHNqTaHxgIjbpw7k3wftjR2sPhIQ7cJhoMIdHrc-f4Pk2lcRjHKxw/exec", {
                 method: "POST",
-                body: JSON.stringify({ name, email, message }),
-                headers: { "Content-Type": "application/json" }
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, phonenumber })
             })
-            .then(response => response.text())
+            .then(response => response.json())
             .then(data => {
-                document.getElementById("responseMessage").textContent = "Data submitted successfully!";
-                document.getElementById("dataForm").reset();
+                console.log("Server Response:", data);
+                document.getElementById("responseMessage").textContent = data.status === "Success" 
+                    ? "✅ Data submitted successfully!" 
+                    : "❌ Error: " + data.message;
             })
             .catch(error => {
-                document.getElementById("responseMessage").textContent = "Error submitting data.";
+                console.error("Fetch Error:", error);
+                document.getElementById("responseMessage").textContent = "❌ Error submitting data. Check console.";
             });
         });
     </script>
+
 </body>
 </html>
