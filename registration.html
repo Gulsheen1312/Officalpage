@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        form { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; }
+        button { padding: 10px 20px; background: #28a745; color: #fff; border: none; cursor: pointer; }
+        button:disabled { background: gray; }
+    </style>
+</head>
+<body>
+    <h2>Submit Data to Google Sheets</h2>
+    <form id="dataForm">
+        <input type="text" id="name" placeholder="Enter Name" required>
+        <input type="email" id="email" placeholder="Enter Email" required>
+        <textarea id="message" placeholder="Enter Message" required></textarea>
+        <button type="submit">Submit</button>
+        <p id="responseMessage"></p>
+    </form>
+
+    <script>
+        document.getElementById("dataForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+
+            fetch("https://script.google.com/macros/s/AKfycbx7Ri1MFEIU_mJ8vU3oN77M23pF5d8pr9O6S5VR15D1fm2ASHdJpmbgsk0JBoM2DaxnEg/exec", {
+                method: "POST",
+                body: JSON.stringify({ name, email, message }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("responseMessage").textContent = "Data submitted successfully!";
+                document.getElementById("dataForm").reset();
+            })
+            .catch(error => {
+                document.getElementById("responseMessage").textContent = "Error submitting data.";
+            });
+        });
+    </script>
+</body>
+</html>
