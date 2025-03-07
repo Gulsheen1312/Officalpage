@@ -211,6 +211,41 @@
                 transform: scale(1.02);
             }
         }
+        select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #89C4F4;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2389C4F4'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.payment-note {
+    display: block;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+@media (max-width: 480px) {
+    select {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
     </style>
 </head>
 <body>
@@ -232,10 +267,45 @@
             <input type="text" name="your-name" placeholder="Full Name" required>
             <input type="tel" name="your-number" placeholder="Contact Number" required>
             <input type="email" name="your-email" placeholder="Email Address" required>
-            <textarea name="message" placeholder="Your Message" required rows="5"></textarea>
-            <input type="text" name="profession" placeholder="Current Profession" required>
-            <input type="text" name="payment" placeholder="Preferred Payment Method" required>
-            <input type="text" name="how do you know" placeholder="How did you hear about us?" required>
+            <!-- <textarea name="message" placeholder="Your Message" required rows="5"></textarea> -->
+            <div class="input-group">
+              <label>Profession:</label>
+              <select name="profession" required>
+                  <option value="" disabled selected>Select your profession</option>
+                  <option>School</option>
+                  <option>Under Graduate</option>
+                  <option>Post Graduate</option>
+                  <option>Working professional</option>
+                  <option>Self employed</option>
+                  <option>Civil Servant</option>
+                  <option>Retired</option>
+                  <option>Other</option>
+              </select>
+          </div>
+          
+          <div class="input-group">
+              <label>How did you hear about us?</label>
+              <select name="how do you know" required>
+                  <option value="" disabled selected>Select an option</option>
+                  <option>Friends/Family</option>
+                  <option>Internet</option>
+                  <option>Newspaper</option>
+                  <option>Cultural Event</option>
+                  <option>Educational Fair</option>
+                  <option>Other</option>
+              </select>
+          </div>
+          
+          <div class="input-group">
+              <label>Payment Method:</label>
+              <select name="payment" required>
+                  <option value="" disabled selected>Select payment method</option>
+                  <option>NEFT/Bank Transfer</option>
+                  <option>Paytm</option>
+                  <option>Google Pay</option>
+              </select>
+              <small class="payment-note">*Payment details will be shared after enrollment confirmation</small>
+          </div>
             <button type="submit" style="background:#008cff; color:white; border:none;">
                 Begin Your French Journey
             </button>
