@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gulsheen French Classes Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* background: #f0f8ff; */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .swiper {
+            width: 100%;
+            padding: 50px 0;
+        }
+
+        .swiper-slide {
+            width: 300px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+        }
+
+        .swiper-slide img {
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Navigation buttons */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #89C4F4 !important;
+            background: rgba(255,255,255,0.8);
+            padding: 20px;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .swiper-slide {
+                width: 250px;
+                height: 400px;
+            }
+        }
+      .results-heading {
+            font-size: 5rem;
+            background: linear-gradient(90deg, 
+                   /* Red */
+                   /* White */
+                #0000FF 0%, 
+              #FFFFFF 50%,
+              #FF0000 100% /* Blue */
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+        }
+
+    </style>
+</head>
+<body>
+  <img src="./img/logo.jpeg" style="width:200px;" alt="">
+  <h1 class="results-heading">Results</h1>
+    <!-- Swiper Container -->
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="https://gulsheen1312.github.io/Officalpage/file4.jpeg" alt="Gallery Image 1">
+            </div>
+            <div class="swiper-slide">
+                <img src="https://gulsheen1312.github.io/Officalpage/file2.jpeg" alt="Gallery Image 2">
+            </div>
+          <div class="swiper-slide">
+                <img src="https://gulsheen1312.github.io/Officalpage/file3.jpeg" alt="Gallery Image 2">
+            </div>
+          <div class="swiper-slide">
+                <img src="https://gulsheen1312.github.io/Officalpage/file5.jpeg" alt="Gallery Image 2">
+            </div>
+          <div class="swiper-slide">
+                <img src="https://gulsheen1312.github.io/Officalpage/file6.jpeg" alt="Gallery Image 2">
+            </div>
+          <div class="swiper-slide">
+                <img src="https://gulsheen1312.github.io/Officalpage/file7.jpeg" alt="Gallery Image 2">
+            </div>
+          <div class="swiper-slide">
+                <img src="https://gulsheen1312.github.io/Officalpage/file8.jpeg" alt="Gallery Image 2">
+            </div>
+          <div class="swiper-slide">
+                <img src="https://gulsheen1312.github.io/Officalpage/file9.jpeg" alt="Gallery Image 2">
+            </div>
+          <div class="swiper-slide">
+                <img src="https://gulsheen1312.github.io/Officalpage/file10.jpeg" alt="Gallery Image 2">
+            </div>
+          <div class="swiper-slide">
+                <img src="https://gulsheen1312.github.io/Officalpage/file11.jpeg" alt="Gallery Image 2">
+            </div>
+          <div class="swiper-slide">
+                <img src="https://gulsheen1312.github.io/Officalpage/file13.jpeg" alt="Gallery Image 2">
+            </div>
+
+            <!-- Add remaining slides following the same pattern -->
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        const swiper = new Swiper('.swiper', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            loop: true,
+            coverflowEffect: {
+                rotate: 10,
+                stretch: 0,
+                depth: 400,
+                modifier: 2,
+                slideShadows: true,
+            },
+          autoplay: {
+                delay: 1000, // 3 seconds between slides
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                }
+            }
+        });
+    </script>
+</body>
+</html>
